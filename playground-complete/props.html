@@ -7,30 +7,37 @@
   <title>Document</title>
 </head>
 <body>
-  <div id="app">
-    <!-- <app-header v-bind:프롭스 속성 이름="상위 컴포넌트의 데이터 이름"></app-header> -->
-    <app-header v-bind:propsdata="message"></app-header>
-    <app-content v-bind:propsdata="num"></app-content>
-  </div>
+<div id="app">
+
+  <!-- 3. 데이터를 전달받아 바인딩 -->
+  <app-header v-bind:프롭스 속성 이름 "상위 컴포넌트의 데이터 이름"></app-header>
+  <app-header v-bind:propsdata="message"></app-header>
+  <app-content v-bind:propsdata="num"></app-content>
+  <!-- app-header의 상위컴포넌트는 root이며, root의 데이터 이름은 message이다 -->
+</div>
 
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script>
+
+    // 2. 변수를 선언, 데이터 html로 전달
     var appHeader = {
-      template: '<h1>{{ propsdata }}</h1>',
-      props: ['propsdata']
-    }
-    var appContent = {
-      template: '<div>{{ propsdata }}</div>',
+      template: '<h1> {{ propsdata }} </h1>',
       props: ['propsdata']
     }
 
+    var appContent = {
+      template: '<p> {{ propsdata }} </p>',
+      props: ['propsdata']
+    }
+
+    // 1. 인스턴스 생성
     new Vue({
       el: '#app',
       components: {
-        'app-header': appHeader,
+        'app-header': appHeader, // 위의 템플릿을 담은 js 변수명
         'app-content': appContent
       },
-      data: {
+      data : {
         message: 'hi',
         num: 10
       }
