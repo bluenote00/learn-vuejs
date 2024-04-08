@@ -8,32 +8,37 @@
 </head>
 <body>
   <div id="app">
-    <p>{{ num }}</p>
-    <!-- <app-header v-on:하위 컴포넌트에서 발생한 이벤트 이름="상위 컴포넌트의 메서드 이름"></app-header> -->
+    <!-- 3. emit 받기 -->
+    <app-header v-on:하위 컴포넌트에서 발생한 이벤트 이름="상위 컴포넌트의 메서드 이름"></app-header>
     <app-header v-on:pass="logText"></app-header>
-    <app-content v-on:increase="increaseNumber"></app-content>
+    <app-content v-on:add="logNumber"></app-content>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script>
+
+    // 2. 메소드 생성 -> html로 전달
     var appHeader = {
-      template: '<button v-on:click="passEvent">click me</button>',
+      template: '<button v-on:click="passEvent">click me!</button>',
       methods: {
         passEvent: function() {
           this.$emit('pass');
         }
       }
     }
+
     var appContent = {
       template: '<button v-on:click="addNumber">add</button>',
       methods: {
         addNumber: function() {
-          this.$emit('increase');
+            this.$emit('add');
+        }
         }
       }
-    }
+    
 
-    var vm = new Vue({
+    // 1. 인스턴스 생성
+    new Vue({
       el: '#app',
       components: {
         'app-header': appHeader,
@@ -43,8 +48,10 @@
         logText: function() {
           console.log('hi');
         },
-        increaseNumber: function() {
-          this.num = this.num + 1;
+        methods: {
+          logNumber: function() {
+            console.log(++1);
+          }
         }
       },
       data: {
